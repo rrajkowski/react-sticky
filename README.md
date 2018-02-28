@@ -1,6 +1,6 @@
-# [React-MUI](https://github.com/callemall/material-ui) - Sticky Notes
+# [React-Sticky](https://github.com/callemall/material-ui) - Sticky Notes
 
-This is an example project that uses [React-MUI](https://github.com/callemall/material-ui).
+This is an example project that uses [React-Sticky](https://github.com/callemall/material-ui).
 
 ## Installation
 

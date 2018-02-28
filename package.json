@@ -1,7 +1,7 @@
 {
-  "name": "sticky-notes",
+  "name": "react-sticky",
   "version": "0.0.1",
-  "description": "Sticky Notes (React, Redux, Webpack, Node)",
+  "description": "React Sticky (React, Redux, Webpack, Node)",
   "keywords": [
     "es6",
     "react",

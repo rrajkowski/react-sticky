@@ -19,7 +19,7 @@ const StickyNoteGroup = () => (
 );
 
 const boxTarget = {
-  drop(props, monitor, component) {
+  drop(monitor, component) {
     const item = monitor.getItem();
     const delta = monitor.getDifferenceFromInitialOffset();
     const left = Math.round(item.left + delta.x);
@@ -30,38 +30,30 @@ const boxTarget = {
 
 function collect(connect) {
   return {
-    connectDropTarget: connect.dropTarget(),
+    connectDropTarget: connect.dropTarget()
   };
 }
-
-const propTypes = {
-  hideSourceOnDrag: PropTypes.bool.isRequired,
-  connectDropTarget: PropTypes.func.isRequired,
-};
 
 class Notes extends Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
-      open: false,
       numNotes: 0
     };
   }
 
   addNote = () => {
     this.setState({
-      numNotes: this.state.numNotes + 1
+      numNotes: this.state.numNotes + 1,
     });
   };
 
   render() {
-    const { hideSourceOnDrag, connectDropTarget } = this.props
     const notes = [];
     for (let i=0; i < this.state.numNotes; i += 1) {
-      notes.push(<Note key={i} number={i} />);
+      notes.push(<Note key={i} number={i} enableModal={() => this.props.active } />);
     }
-    console.warn('notes: ', notes);
+    //console.warn('notes: ', notes);
 
     return (
       <div>

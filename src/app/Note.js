@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {DragSource} from 'react-dnd';
-import Types from './types'
+import Types from './types';
 
 
 /**
@@ -30,10 +30,10 @@ const propTypes = {
 };
 
 class Note extends Component {
-  constructor(props, context) {
+  constructor(props, context, enableModal) {
     super(props, context);
     this.state = {
-      active: false,
+      active: enableModal,
       bgColor: '#FFFFA5',
       close: 'none'
     };
@@ -44,12 +44,15 @@ class Note extends Component {
     this.setState({
       active: !this.state.active,
       bgColor: !this.state.active ? '#29B6F6' : '#FFFFA5',
-      opacity: !this.state.active ? 0.8 : 1,
-      transform: !this.state.active ? 'rotateY(180deg)' : 'rotateY(0)',
+      opacity: !this.state.active ? 0.9 : 1,
+      transform: !this.state.active ? 'scale(3.0) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
       transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
       close: !this.state.active ? 'block' : 'none',
-      zoom: !this.state.active ? 3 : 1
+      position: !this.state.active ? 'fixed' : '',
+      zIndex: !this.state.active ? 1000 : 100,
+      margin: !this.state.active ? '-6% 0 0 6%' : '20px',
     });
+    this.props.enableModal(!this.state.active);
   };
 
   render() {
@@ -66,7 +69,9 @@ class Note extends Component {
               opacity: this.state.opacity,
               transform: this.state.transform,
               transition: this.state.transition,
-              zoom: this.state.zoom
+              position: this.state.position,
+              zIndex: this.state.zIndex,
+              margin: this.state.margin
               })}
           zDepth={4}
           rounded={true}
@@ -79,4 +84,3 @@ class Note extends Component {
 }
 
 export default DragSource(Types.NOTE, noteSource, collect)(Note);
-//export default Note;

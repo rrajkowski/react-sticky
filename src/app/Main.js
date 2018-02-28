@@ -6,31 +6,33 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Notes from './Notes'; // A Group of Notes
+import ModalBg from './ModalBg'; // A background for open notes
 
 
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 50,
-  },
-};
 
 class Main extends Component {
   constructor(props, context) {
     super(props, context);
-
+    this.enableModal = this.enableModal.bind(this);
     this.state = {
-      open: false,
+      active: false,
       value: null
     };
   }
+  enableModal(bool) {
+    this.setState({
+      active: bool
+    })
+  }
+
 
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div style={styles.container}>
+        <div id="main">
           <h1>Sticky Notes</h1>
-          <Notes/>
+          <Notes enableModal={() => this.state.active }/>
+          {this.state.active && <ModalBg />}
         </div>
       </MuiThemeProvider>
     );
