@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import {DragSource} from 'react-dnd';
 import Types from './types';
-
+import ModalBg from './ModalBg'; // A background for open notes
 
 /**
  * Implements the drag note
@@ -30,10 +30,9 @@ const propTypes = {
 };
 
 class Note extends Component {
-  constructor(props, context, enableModal) {
+  constructor(props, context) {
     super(props, context);
     this.state = {
-      active: enableModal,
       bgColor: '#FFFFA5',
       close: 'none'
     };
@@ -49,10 +48,8 @@ class Note extends Component {
       transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
       close: !this.state.active ? 'block' : 'none',
       position: !this.state.active ? 'fixed' : '',
-      zIndex: !this.state.active ? 1000 : 100,
-      margin: !this.state.active ? '-6% 0 0 6%' : '20px',
+      zIndex: !this.state.active ? 1000 : 100
     });
-    this.props.enableModal(!this.state.active);
   };
 
   render() {
@@ -70,14 +67,16 @@ class Note extends Component {
               transform: this.state.transform,
               transition: this.state.transition,
               position: this.state.position,
-              zIndex: this.state.zIndex,
-              margin: this.state.margin
+              zIndex: this.state.zIndex
               })}
+          ref={this.props.number}
           zDepth={4}
           rounded={true}
           onClick={this.toggleNote}>
           <span className="close" style={Object.assign({}, close, {display: this.state.close})}>×</span>
+          {!this.state.active && <p>Note:{this.props.number}</p>}
         </Paper>
+        {this.state.active && <ModalBg />}
       </div>
     );
   }

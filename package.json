@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --progress --inline --colors",
-    "build": "webpack --config webpack-production.config.js --progress --colors"
+    "build": "webpack --config ./webpack-production.config.js --progress --colors",
+    "heroku-postbuild": "webpack --config ./webpack-production.config.js --progress --colors"
   },
   "private": true,
   "devDependencies": {
@@ -25,12 +26,12 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "html-webpack-plugin": "^2.24.1",
+    "material-ui": "^0.20.0",
     "transfer-webpack-plugin": "^0.1.4",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
-    "material-ui": "latest",
     "react": "^16.2.0",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",

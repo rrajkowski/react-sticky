@@ -51,7 +51,7 @@ class Notes extends Component {
   render() {
     const notes = [];
     for (let i=0; i < this.state.numNotes; i += 1) {
-      notes.push(<Note key={i} number={i} enableModal={() => this.props.active } />);
+      notes.push(<Note key={i} number={i} />);
     }
     //console.warn('notes: ', notes);
 

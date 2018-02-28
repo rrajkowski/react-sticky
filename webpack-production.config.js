@@ -19,7 +19,8 @@ const config = {
     // Define production build to allow React to strip out unnecessary checks
     new webpack.DefinePlugin({
       'process.env':{
-        'NODE_ENV': JSON.stringify('production')
+        'NODE_ENV': JSON.stringify('production'),
+        'PORT': JSON.stringify(process.env.PORT)
       }
     }),
     // Minify the bundle
