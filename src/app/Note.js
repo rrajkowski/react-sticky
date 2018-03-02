@@ -43,7 +43,8 @@ class Note extends Component {
     super(props, context);
     this.state = {
       bgColor: '#FFFFA5',
-      close: 'none'
+      close: 'none',
+      active: false
     };
   }
 
@@ -81,8 +82,8 @@ class Note extends Component {
          <Paper
            className="note"
            style={Object.assign({
-           left: this.props.left,
-           top: this.props.top,
+           left: this.props.left +'px',
+           top: this.props.top + 'px',
            backgroundColor:this.state.bgColor,
            transform: this.state.transform,
            transition: this.state.transition,

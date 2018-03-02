@@ -14,9 +14,8 @@ body {
 }
 
 #main{
-  overflow-y: auto;
+  overflow: hidden;
   text-align: center;
-  padding-top: 50px;
   width:100%;
   height: 100%;
 }
@@ -24,8 +23,7 @@ body {
 #notesContainer{
   overflow-y: auto;
   text-align: center;
-  padding-top: 50px;
-  min-height: 500px;
+  min-height: 1000px;
   position: relative;
 }
 

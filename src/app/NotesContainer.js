@@ -50,11 +50,14 @@ class NotesContainer extends Component {
   }
 
   addNote = () => {
-    let notes = Object.assign({}, this.state.notes);
-    let i = this.state.counter++;
-    let rand = Math.floor(Math.random() * 400) + 100;
-    notes[i] = {left: 100+rand, top: 40+rand, zIndex: 999};
-    this.setState({notes});
+    if(!this.state.active) {
+      let notes = Object.assign({}, this.state.notes);
+      let i = this.state.counter++;
+      const randomLeft = Math.floor(Math.random() * 400) + 100;
+      const randomTop = Math.floor(Math.random() * 200) + 50;
+      notes[i] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 999};
+      this.setState({notes});
+    }
   };
 
   moveNote(id, left, top, zIndex) {
