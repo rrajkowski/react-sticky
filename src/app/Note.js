@@ -1,20 +1,24 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import Paper from 'material-ui/Paper';
 import {DragSource} from 'react-dnd';
-import Types from './types';
-import ModalBg from './ModalBg'; // A background for open notes
+import Types from './Types';
+import ModalBg from './ModalBg';
 
 /**
- * Implements the drag note
+ * Implements a sticky note
  */
+
+
 const noteSource = {
   beginDrag(props) {
-    const { id, left, top } = props
-    return { id, left, top }
+    const { id, left, top, zIndex } = props;
+    return { id, left, top, zIndex }
   },
 };
-
 
 function collect(connect, monitor) {
   return {
@@ -24,9 +28,14 @@ function collect(connect, monitor) {
 }
 
 const propTypes = {
-  text: PropTypes.string.isRequired,
+  connectDragSource: PropTypes.func.isRequired,
   isDragging: PropTypes.bool.isRequired,
-  connectDragSource: PropTypes.func.isRequired
+  id: PropTypes.any.isRequired,
+  left: PropTypes.number.isRequired,
+  top: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired,
+  hideSourceOnDrag: PropTypes.bool.isRequired,
+  children: PropTypes.node,
 };
 
 class Note extends Component {
@@ -38,47 +47,61 @@ class Note extends Component {
     };
   }
 
+  // Toggle bgColor, flip, & scale with css
   toggleNote = () => {
-    // Toggle bgColor, flip, & zoom
     this.setState({
       active: !this.state.active,
+      left: !this.state.active ? '45%': this.props.left,
+      top: !this.state.active ? '45%' : this.props.top,
       bgColor: !this.state.active ? '#29B6F6' : '#FFFFA5',
-      opacity: !this.state.active ? 0.9 : 1,
       transform: !this.state.active ? 'scale(3.0) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
       transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
       close: !this.state.active ? 'block' : 'none',
-      position: !this.state.active ? 'fixed' : '',
-      zIndex: !this.state.active ? 1000 : 100
+      position: !this.state.active ? 'fixed' : 'relative',
+      zIndex: !this.state.active ? 10001 : this.state.zIndex,
     });
   };
 
   render() {
-    const { isDragging, connectDragSource } = this.props;
-    if (isDragging) {
+    const {
+        hideSourceOnDrag,
+        left,
+        top,
+        connectDragSource,
+        isDragging,
+        children,
+    } = this.props;
+    if (isDragging && hideSourceOnDrag) {
       return null
     }
+
     return connectDragSource(
-      <div className="dragable">
-        <Paper
-          className="note"
-          style={Object.assign({
-              backgroundColor:this.state.bgColor,
-              opacity: this.state.opacity,
-              transform: this.state.transform,
-              transition: this.state.transition,
-              position: this.state.position,
-              zIndex: this.state.zIndex
-              })}
-          ref={this.props.number}
-          zDepth={4}
-          rounded={true}
-          onClick={this.toggleNote}>
-          <span className="close" style={Object.assign({}, close, {display: this.state.close})}>×</span>
-          {!this.state.active && <p>Note:{this.props.number}</p>}
-        </Paper>
-        {this.state.active && <ModalBg />}
-      </div>
-    );
+        <div className="dragable" >
+         <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+         <Paper
+           className="note"
+           style={Object.assign({
+           left: this.props.left,
+           top: this.props.top,
+           backgroundColor:this.state.bgColor,
+           transform: this.state.transform,
+           transition: this.state.transition,
+           position: this.state.position,
+           zIndex: this.state.zIndex,
+         })}
+         left={this.props.left}
+         top={this.props.top}
+         ref={this.props.id}
+         zDepth={4}
+         rounded={true}
+         onClick={this.toggleNote}>
+         <span className="close" style={Object.assign({}, close, {display: this.state.close})}>×</span>
+         {!this.state.active && <p>Note:{this.props.id}</p>}
+         </Paper>
+         </MuiThemeProvider>
+         {this.state.active && <ModalBg style={Object.assign({ zIndex: this.state.zIndex-1})} />}
+         </div>
+    )
   }
 }
 

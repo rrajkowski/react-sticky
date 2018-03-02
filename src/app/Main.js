@@ -1,34 +1,25 @@
-/**
- * In this file, we create the Main React component
- */
-import React, {Component} from 'react';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import Notes from './Notes'; // A Group of Notes
-
-
+import React, { Component } from 'react';
+import NotesContainer from './NotesContainer';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
 class Main extends Component {
   constructor(props, context) {
-    super(props, context);
+    super(props);
     this.state = {
-      active: false,
-      value: null
-    };
-  }
-
-
+      hideSourceOnDrag: true,
+      active: false
+    }
+  };
   render() {
+    const { hideSourceOnDrag } = this.state;
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div id="main">
-          <h1>Sticky Notes</h1>
-          <Notes/>
-        </div>
-      </MuiThemeProvider>
+      <div id="main">
+        <h1>Sticky Notes</h1>
+        <NotesContainer hideSourceOnDrag={hideSourceOnDrag} />
+      </div>
     );
   }
 }
 
-export default Main;
+export default DragDropContext(HTML5Backend)(Main);

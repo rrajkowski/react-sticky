@@ -16,7 +16,7 @@ const config = {
     contentBase: 'src/www', // Relative directory for base of server
     hot: true, // Live-reload
     inline: true,
-    port: 8080, // Heroku: 8080, Localhost: 3000 Port Number
+    port: 3000, // Heroku: 8080, Localhost: 3000 Port Number
     host: 'localhost', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
