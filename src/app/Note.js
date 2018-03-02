@@ -52,14 +52,12 @@ class Note extends Component {
   toggleNote = () => {
     this.setState({
       active: !this.state.active,
-      left: !this.state.active ? '45%': this.props.left,
-      top: !this.state.active ? '45%' : this.props.top,
       bgColor: !this.state.active ? '#29B6F6' : '#FFFFA5',
       transform: !this.state.active ? 'scale(3.0) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
       transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
       close: !this.state.active ? 'block' : 'none',
-      position: !this.state.active ? 'fixed' : 'relative',
-      zIndex: !this.state.active ? 10001 : this.state.zIndex,
+      position: !this.state.active ? 'fixed' : '',
+      zIndex: !this.state.active ? 10001 : this.props.zIndex,
     });
   };
 
@@ -68,6 +66,7 @@ class Note extends Component {
         hideSourceOnDrag,
         left,
         top,
+        zIndex,
         connectDragSource,
         isDragging,
         children,
@@ -88,7 +87,7 @@ class Note extends Component {
            transform: this.state.transform,
            transition: this.state.transition,
            position: this.state.position,
-           zIndex: this.state.zIndex,
+           zIndex: this.props.zIndex,
          })}
          left={this.props.left}
          top={this.props.top}

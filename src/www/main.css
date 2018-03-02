@@ -51,12 +51,9 @@ body {
 .note{
   height: 250px;
   width: 250px;
-  margin: 20px;
   text-align: center;
   display: inline-block;
   cursor: move;
-  opacity: 1;
-  z-index: 100;
   position: fixed;
   overflow: auto;
 }

@@ -55,7 +55,8 @@ class NotesContainer extends Component {
       let i = this.state.counter++;
       const randomLeft = Math.floor(Math.random() * 400) + 100;
       const randomTop = Math.floor(Math.random() * 200) + 50;
-      notes[i] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 999};
+      const randomZindex = Math.floor(Math.random() * 100) - 10;
+      notes[i] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 100 + randomZindex};
       this.setState({notes});
     }
   };
@@ -69,7 +70,7 @@ class NotesContainer extends Component {
           id: notes[i].id,
           top: notes[i].top,
           left: notes[i].left,
-          zIndex: 100
+          zIndex: notes[i].zIndex
         };
       }
     }
