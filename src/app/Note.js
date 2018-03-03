@@ -53,20 +53,19 @@ class Note extends Component {
     this.setState({
       active: !this.state.active,
       bgColor: !this.state.active ? '#29B6F6' : '#FFFFA5',
-      transform: !this.state.active ? 'scale(3.0) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
+      transform: !this.state.active ? 'scale(2.5) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
       transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
       close: !this.state.active ? 'block' : 'none',
       position: !this.state.active ? 'fixed' : '',
-      zIndex: !this.state.active ? 10001 : this.props.zIndex,
+      left: this.state.active ? '45%!important' : this.props.left,
+      top: this.state.active ? '250px!important' : this.props.top,
+      zIndex: !this.state.active ? 1001 : this.props.zIndex,
     });
   };
 
   render() {
     const {
         hideSourceOnDrag,
-        left,
-        top,
-        zIndex,
         connectDragSource,
         isDragging,
         children,
@@ -81,16 +80,14 @@ class Note extends Component {
          <Paper
            className="note"
            style={Object.assign({
-           left: this.props.left +'px',
-           top: this.props.top + 'px',
+           left: this.props.left,
+           top: this.props.top,
            backgroundColor:this.state.bgColor,
            transform: this.state.transform,
            transition: this.state.transition,
            position: this.state.position,
-           zIndex: this.props.zIndex,
+           zIndex: this.state.zIndex,
          })}
-         left={this.props.left}
-         top={this.props.top}
          ref={this.props.id}
          zDepth={4}
          rounded={true}

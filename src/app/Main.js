@@ -16,7 +16,9 @@ class Main extends Component {
     return (
       <div id="main">
         <h1>Sticky Notes</h1>
-        <NotesContainer hideSourceOnDrag={hideSourceOnDrag} />
+        <NotesContainer
+            hideSourceOnDrag={hideSourceOnDrag}
+        />
       </div>
     );
   }

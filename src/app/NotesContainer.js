@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import RaisedButton from 'material-ui/RaisedButton';
+import { createStore } from 'redux';
+import counter from './reducers';
 import update from 'immutability-helper';
 import { DropTarget } from 'react-dnd';
 import Types from './Types';
@@ -26,6 +28,9 @@ const notesTarget = {
   }
 };
 
+// counter store from redux
+const store = createStore(counter);
+
 
 function collect(connect, monitor) {
   return {
@@ -38,25 +43,26 @@ function collect(connect, monitor) {
 const propTypes = {
   connectDropTarget: PropTypes.func.isRequired,
   hideSourceOnDrag: PropTypes.bool.isRequired,
+  onIncrement: PropTypes.func.isRequired,
+  counter: PropTypes.number.isRequired,
 };
 
 class NotesContainer extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      notes: {},
-      counter: 1
+      notes: {}
     };
   }
 
   addNote = () => {
     if(!this.state.active) {
+      store.dispatch({ type: 'INCREMENT' });
       let notes = Object.assign({}, this.state.notes);
-      let i = this.state.counter++;
+      const counter = store.getState();
       const randomLeft = Math.floor(Math.random() * 400) + 100;
       const randomTop = Math.floor(Math.random() * 200) + 50;
-      const randomZindex = Math.floor(Math.random() * 100) - 10;
-      notes[i] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 100 + randomZindex};
+      notes[counter] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 999};
       this.setState({notes});
     }
   };
@@ -65,7 +71,7 @@ class NotesContainer extends Component {
     // set higher zIndex
     let notes = Object.assign({}, this.state.notes);
     for(let i in notes){
-      if(notes.hasOwnProperty(i)) {
+      if(notes.hasOwnProperty(i) && i !== id) {
         notes[i] = {
           id: notes[i].id,
           top: notes[i].top,
@@ -75,7 +81,7 @@ class NotesContainer extends Component {
       }
     }
     this.setState({notes});
-    // move Note
+    // moved Note +zIndex
     this.setState(
         update(this.state, {
           notes: {
@@ -88,7 +94,7 @@ class NotesContainer extends Component {
   }
 
   render() {
-    const { connectDropTarget, hideSourceOnDrag } = this.props;
+    const { connectDropTarget, hideSourceOnDrag, counter } = this.props;
     let { notes } = this.state;
     return connectDropTarget(
       <div id="notesContainer">
@@ -98,7 +104,7 @@ class NotesContainer extends Component {
               secondary={true}
               onTouchTap={this.addNote}/>
         </MuiThemeProvider>
-        <p>&nbsp;</p>
+        <p>Counter: {store.getState()}</p>
         {Object.keys(notes).map(key => {
           const { left, top, zIndex } = notes[key];
           return (

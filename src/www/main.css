@@ -51,8 +51,7 @@ body {
 .note{
   height: 250px;
   width: 250px;
-  text-align: center;
-  display: inline-block;
+  font-size: 1.5em;
   cursor: move;
   position: fixed;
   overflow: auto;
@@ -67,4 +66,8 @@ body {
   font-weight: bold;
   transition: 0.3s;
   display: none;
+}
+
+p{
+  font-size: 1.2em;
 }
