@@ -1,3 +1,6 @@
+/**
+ * Implements a Note Container
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -10,12 +13,6 @@ import update from 'immutability-helper';
 import { DropTarget } from 'react-dnd';
 import Types from './Types';
 import Note from './Note'; // A Note component, Actions: drag/drop/animate
-
-const notestyle = {
-  margin: '0 auto',
-  background: '#efefef',
-  padding:'2em'
-};
 
 const notesTarget = {
   drop(props, monitor, component) {
@@ -94,7 +91,7 @@ class NotesContainer extends Component {
   }
 
   render() {
-    const { connectDropTarget, hideSourceOnDrag, counter } = this.props;
+    const { connectDropTarget, hideSourceOnDrag } = this.props;
     let { notes } = this.state;
     return connectDropTarget(
       <div id="notesContainer">

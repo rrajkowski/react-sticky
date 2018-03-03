@@ -45,7 +45,9 @@ body {
   display: inline-flex;
   justify-content: center;
   padding: 20px 0;
-  position: relative;
+  height: 250px;
+  width: 250px;
+  /*position: relative;*/
 }
 
 .note{

@@ -1,3 +1,7 @@
+/**
+ * Implements a Note
+ */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -7,11 +11,6 @@ import Paper from 'material-ui/Paper';
 import {DragSource} from 'react-dnd';
 import Types from './Types';
 import ModalBg from './ModalBg';
-
-/**
- * Implements a sticky note
- */
-
 
 const noteSource = {
   beginDrag(props) {

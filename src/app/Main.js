@@ -1,3 +1,7 @@
+/**
+ * Main Wrapper Container
+ */
+
 import React, { Component } from 'react';
 import NotesContainer from './NotesContainer';
 import HTML5Backend from 'react-dnd-html5-backend';
