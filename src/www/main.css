@@ -47,7 +47,7 @@ body {
   padding: 20px 0;
   height: 250px;
   width: 250px;
-  /*position: relative;*/
+  position: relative;
 }
 
 .note{
