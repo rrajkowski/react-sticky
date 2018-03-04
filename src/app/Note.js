@@ -91,7 +91,7 @@ class Note extends Component {
            style={Object.assign(this.state.styles, {
              left: this.props.left,
              top: this.props.top,
-             zIndex: this.props.zIndex,
+             zIndex: this.state.zIndex,
            })}
            ref={this.props.id}
            zDepth={4}
