@@ -41,7 +41,15 @@ class Note extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      bgColor: '#FFFFA5',
+      styles:{
+        backgroundColor: '#FFFFA5',
+        transform: '',
+        transition: '',
+        position: '',
+        left: this.props.left,
+        top: this.props.top,
+      },
+      zIndex: this.props.zIndex,
       close: 'none',
       active: false
     };
@@ -51,14 +59,16 @@ class Note extends Component {
   toggleNote = () => {
     this.setState({
       active: !this.state.active,
-      bgColor: !this.state.active ? '#29B6F6' : '#FFFFA5',
-      transform: !this.state.active ? 'scale(2.5) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
-      transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
-      close: !this.state.active ? 'block' : 'none',
-      position: !this.state.active ? 'fixed' : '',
-      left: this.state.active ? '45%!important' : this.props.left,
-      top: this.state.active ? '250px!important' : this.props.top,
-      zIndex: !this.state.active ? 1001 : this.props.zIndex,
+      closeDisplay: !this.state.active ? 'block' : 'none',
+      styles: {
+        backgroundColor: !this.state.active ? '#29B6F6' : '#FFFFA5',
+        transform: !this.state.active ? 'scale(2.5) rotateY(180deg)' : 'scale(1.0) rotateY(0)',
+        transition: !this.state.active ? '300ms ease-in' : '300ms ease-out',
+        position: !this.state.active ? 'fixed' : '',
+      },
+      left: !this.state.active ? '45%' : this.state.left,
+      top: !this.state.active ? '35%' : this.state.top,
+      zIndex: !this.state.active ? 1001 : 100,
     });
   };
 
@@ -74,24 +84,20 @@ class Note extends Component {
     }
 
     return connectDragSource(
-        <div className="dragable" >
+        <div className="dragable">
          <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
          <Paper
            className="note"
-           style={Object.assign({
-           left: this.props.left,
-           top: this.props.top,
-           backgroundColor:this.state.bgColor,
-           transform: this.state.transform,
-           transition: this.state.transition,
-           position: this.state.position,
-           zIndex: this.state.zIndex,
-         })}
-         ref={this.props.id}
-         zDepth={4}
-         rounded={true}
-         onClick={this.toggleNote}>
-         <span className="close" style={Object.assign({}, close, {display: this.state.close})}>×</span>
+           style={Object.assign(this.state.styles, {
+             left: this.props.left,
+             top: this.props.top,
+             zIndex: this.props.zIndex,
+           })}
+           ref={this.props.id}
+           zDepth={4}
+           rounded={true}
+           onClick={this.toggleNote}>
+         <span className="close" style={Object.assign({}, {display: this.state.closeDisplay})}>×</span>
          {!this.state.active && <p>Note:{this.props.id}</p>}
          </Paper>
          </MuiThemeProvider>

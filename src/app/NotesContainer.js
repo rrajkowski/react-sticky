@@ -59,7 +59,7 @@ class NotesContainer extends Component {
       const counter = store.getState();
       const randomLeft = Math.floor(Math.random() * 400) + 100;
       const randomTop = Math.floor(Math.random() * 200) + 50;
-      notes[counter] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 999};
+      notes[counter] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 998};
       this.setState({notes});
     }
   };
@@ -73,20 +73,29 @@ class NotesContainer extends Component {
           id: notes[i].id,
           top: notes[i].top,
           left: notes[i].left,
-          zIndex: notes[i].zIndex
+          zIndex: 10
         };
       }
     }
     this.setState({notes});
-    // moved Note +zIndex
+    // moved Note
     this.setState(
         update(this.state, {
           notes: {
             [id]: {
-              $merge: { left, top, zIndex },
+              $merge: { left, top, zIndex }
             },
           },
         }),
+    );
+    //+zIndex
+    this.setState(
+        notes[id] = {
+          zIndex: 999,
+          styles: {
+            zIndex: 999
+          }
+        }
     );
   }
 
