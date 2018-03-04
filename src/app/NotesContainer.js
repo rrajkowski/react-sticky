@@ -57,9 +57,12 @@ class NotesContainer extends Component {
       store.dispatch({ type: 'INCREMENT' });
       let notes = Object.assign({}, this.state.notes);
       const counter = store.getState();
-      const randomLeft = Math.floor(Math.random() * 400) + 100;
-      const randomTop = Math.floor(Math.random() * 200) + 50;
-      notes[counter] = {left: 100 + randomLeft, top: 40 + randomTop, zIndex: 998};
+      const devicePixelRatio = window.devicePixelRatio||1;
+      const clientBoundingWidth = Math.round(document.body.getBoundingClientRect().width / devicePixelRatio);
+      const clientBoundingHeight = Math.round(document.body.getBoundingClientRect().height / devicePixelRatio);
+      const randomLeft = Math.floor(Math.random() * clientBoundingWidth) + 10;
+      const randomTop = Math.floor(Math.random() * clientBoundingHeight) + 10;
+      notes[counter] = {left: randomLeft, top: (50 +randomTop), zIndex: 998};
       this.setState({notes});
     }
   };
