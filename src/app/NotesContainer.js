@@ -60,9 +60,9 @@ class NotesContainer extends Component {
       const devicePixelRatio = window.devicePixelRatio||1;
       const clientBoundingWidth = Math.round(document.body.getBoundingClientRect().width / devicePixelRatio);
       const clientBoundingHeight = Math.round(document.body.getBoundingClientRect().height / devicePixelRatio);
-      const randomLeft = Math.floor(Math.random() * clientBoundingWidth) + 10;
+      const randomLeft = Math.floor(Math.random() * clientBoundingWidth-250) + 10;
       const randomTop = Math.floor(Math.random() * clientBoundingHeight) + 10;
-      notes[counter] = {left: randomLeft, top: (50 +randomTop), zIndex: 998};
+      notes[counter] = {left: randomLeft, top: (randomTop + 50), zIndex: 998};
       this.setState({notes});
     }
   };
