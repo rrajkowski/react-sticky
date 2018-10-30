@@ -11,6 +11,13 @@ const config = {
       './src/app/app.js',
     ],
   },
+  // Jest Test config
+  presets: [["env", {"modules": false}], "react"],
+  env: {
+    test: {
+      presets: [["env"], "react"]
+    }
+  },
   // Server Configuration options
   devServer: {
     contentBase: 'src/www', // Relative directory for base of server

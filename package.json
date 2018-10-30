@@ -14,6 +14,7 @@
     "type": "git"
   },
   "scripts": {
+    "test": "jest",
     "start": "webpack-dev-server --config webpack.config.js --progress --inline --colors",
     "build": "webpack --config ./webpack-production.config.js --progress --colors",
     "heroku-postbuild": "webpack --config ./webpack-production.config.js --progress --colors"
@@ -26,9 +27,13 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "classnames": "^2.2.5",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "html-webpack-plugin": "^3.0.3",
     "immutability-helper": "^2.6.5",
+    "jest": "^23.6.0",
     "material-ui": "^0.20.0",
+    "react-test-renderer": "^16.5.1",
     "transfer-webpack-plugin": "^0.1.4",
     "webpack": "^3.11.0",
     "webpack-dev-server": "^2.4.2"
